@@ -24,7 +24,7 @@ La console dans Xcode devrait faire apparaitre le message suivant :
 
 ### `GET /`
 
-Description: Il s'agit d'une route pour verifier si l'API est lancé. DOit retourner "It works" si le serveur est correctement lancé
+Description: Il s'agit d'une route pour verifier si l'API est lancé. Doit retourner "It works" si le serveur est correctement lancé
 
 ### `POST /auth`
 
