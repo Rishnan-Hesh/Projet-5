@@ -98,7 +98,7 @@ class AuthenticationViewModel: ObservableObject {
     
     // Validation d'une adresse e-mail avec une expression régulière
     func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?^_`{|}~-]+)*|\"(?:[\u{0001}-\u{0008}\u{000B}\u{000C}\u{000E}-\u{001F}\u{0021}\u{0023}-\u{005B}\u{005D}-\u{007F}]|\\\\[\u{0001}-\u{0009}\u{000B}\u{000C}\u{000E}-\u{007F}])*\")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}|[a-zA-Z0-9-]*[a-zA-Z0-9]:[\u{0001}-\u{0008}\u{000B}\u{000C}\u{000E}-\u{001F}\u{0021}-\u{005A}\u{0053}-\u{007F}]+)\\])"
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPredicate.evaluate(with: email)
     }
