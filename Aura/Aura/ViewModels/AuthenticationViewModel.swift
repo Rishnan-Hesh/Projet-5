@@ -1,15 +1,15 @@
-//
-//  AuthenticationViewModel.swift
-//  Aura
-//
-//  Created by Vincent Saluzzo on 29/09/2023.
-//
-
 import Foundation
+
+// Structure d'erreur réutilisable, à mettre dans un fichier à part ?
+struct ErrorWrapper: Identifiable {
+    let id = UUID()
+    let message: String
+}
 
 class AuthenticationViewModel: ObservableObject {
     @Published var username: String = ""
     @Published var password: String = ""
+    @Published var error: ErrorWrapper? = nil // Gestion des erreurs pour la vue SwiftUI
     
     let onLoginSucceed: (() -> ())
     
@@ -18,8 +18,16 @@ class AuthenticationViewModel: ObservableObject {
     }
     
     func login() {
+        // Vérification de l'adresse e-mail avant requête
+        guard isValidEmail(username) else {
+            DispatchQueue.main.async {
+                self.error = ErrorWrapper(message: "Veuillez entrer une adresse e-mail valide.")
+            }
+            return
+        }
+        
         // Setup du backend
-        guard let url = URL(string:"http://127.0.0.1:8080/auth") else {
+        guard let url = URL(string: "http://127.0.0.1:8080/auth") else {
             print("URL invalide")
             return
         }
@@ -36,32 +44,32 @@ class AuthenticationViewModel: ObservableObject {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        // a faire a chaque fois
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
         
-        //Requete
         URLSession.shared.dataTask(with: request) { data, response, error in
-            // Gestion des erreurs
             if let error = error {
                 print("Erreur réseau: \(error.localizedDescription)")
-                // utilisable partout grace a swift
+                DispatchQueue.main.async {
+                    self.error = ErrorWrapper(message: "Erreur réseau : \(error.localizedDescription)")
+                }
                 return
             }
             
-            // Vérifier la réponse HTTP
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Réponse invalide")
+                DispatchQueue.main.async {
+                    self.error = ErrorWrapper(message: "Réponse invalide du serveur.")
+                }
                 return
             }
-            // explication ?
+            
             if httpResponse.statusCode == 200, let data = data {
                 do {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                        let token = jsonResponse["token"] as? String {
                         print("Token reçu: \(token)")
                         
-                        // On stocke le token
                         AuthManager.shared.saveToken(token: token)
                         
                         DispatchQueue.main.async {
@@ -69,13 +77,29 @@ class AuthenticationViewModel: ObservableObject {
                         }
                     } else {
                         print("Token non trouvé dans la réponse")
+                        DispatchQueue.main.async {
+                            self.error = ErrorWrapper(message: "Token non trouvé dans la réponse.")
+                        }
                     }
                 } catch {
                     print("Erreur de parsing JSON: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        self.error = ErrorWrapper(message: "Erreur de parsing JSON : \(error.localizedDescription)")
+                    }
                 }
             } else {
                 print("Échec de la connexion: Status code \(httpResponse.statusCode)")
+                DispatchQueue.main.async {
+                    self.error = ErrorWrapper(message: "Échec de la connexion : Code \(httpResponse.statusCode)")
+                }
             }
         }.resume()
+    }
+    
+    // Validation d'une adresse e-mail avec une expression régulière
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?^_`{|}~-]+)*|\"(?:[\u{0001}-\u{0008}\u{000B}\u{000C}\u{000E}-\u{001F}\u{0021}\u{0023}-\u{005B}\u{005D}-\u{007F}]|\\\\[\u{0001}-\u{0009}\u{000B}\u{000C}\u{000E}-\u{007F}])*\")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}|[a-zA-Z0-9-]*[a-zA-Z0-9]:[\u{0001}-\u{0008}\u{000B}\u{000C}\u{000E}-\u{001F}\u{0021}-\u{005A}\u{0053}-\u{007F}]+)\\])"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailPredicate.evaluate(with: email)
     }
 }
