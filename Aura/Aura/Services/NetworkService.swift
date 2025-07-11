@@ -1,31 +1,53 @@
 import Foundation
 
-// Structure d'erreur réutilisable, à mettre dans un fichier à part ?
-struct ErrorWrapper: Identifiable {
-    let id = UUID()
-    let message: String
-}
+struct NetworkService {
 
-class AuthenticationViewModel: ObservableObject {
-    @Published var username: String = ""
-    @Published var password: String = ""
-    @Published var error: ErrorWrapper? = nil // Gestion des erreurs pour la vue SwiftUI
-    
-    let onLoginSucceed: (() -> ())
-    
-    init(_ callback: @escaping () -> ()) {
-        self.onLoginSucceed = callback
+    enum NetworkServiceError: Error {
+        case invalidURL
+        case noData
+        case decodingFailed
     }
-    
-    func login() {
-        // Vérification de l'adresse e-mail avant requête
-        guard isValidEmail(username) else {
-            DispatchQueue.main.async {
-                self.error = ErrorWrapper(message: "Veuillez entrer une adresse e-mail valide.")
-            }
+
+    func fetchAccountDetails() async throws {
+        guard let url = ApiConfig.url(for: .account) else {
+            print("URL invalide")
             return
         }
-        
+
+        guard let token = AuthManager.shared.getToken() else {
+            print("Token manquant")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue(token, forHTTPHeaderField: "token")
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let response = try JSONDecoder().decode(AccountResponse.self, from: data)
+
+            //question
+            let transactions = response.transactions.map { tx in
+                let formatted = tx.value >= 0
+                    ? "+€\(String(format: "%.2f", NSDecimalNumber(decimal: tx.value).doubleValue))"
+                    : "-€\(String(format: "%.2f", NSDecimalNumber(decimal: abs(tx.value)).doubleValue))"
+                return Transaction(description: tx.label, amount: formatted)
+            }
+
+            DispatchQueue.main.async {
+                self.totalAmount = "€\(String(format: "%.2f", NSDecimalNumber(decimal: response.currentBalance).doubleValue))"
+                self.allTransactions = transactions
+                self.recentTransactions = Array(transactions.prefix(3))
+            }
+        } catch {
+            print("Erreur lors du chargement : \(error.localizedDescription)")
+
+            throw NetworkServiceError.noData
+        }
+    }
+
+    func authenticate(username: String, password: String) async throws {
         // Setup du backend
         guard let url = ApiConfig.url(for: .auth) else {
             print("URL invalide")
@@ -36,17 +58,17 @@ class AuthenticationViewModel: ObservableObject {
             "username": username,
             "password": password
         ]
-        
+
         guard let jsonData = try? JSONSerialization.data(withJSONObject: body) else {
             print("Erreur de conversion JSON")
             return
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
-        
+
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Erreur réseau: \(error.localizedDescription)")
@@ -55,7 +77,7 @@ class AuthenticationViewModel: ObservableObject {
                 }
                 return
             }
-            
+
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Réponse invalide")
                 DispatchQueue.main.async {
@@ -63,16 +85,16 @@ class AuthenticationViewModel: ObservableObject {
                 }
                 return
             }
-            
+
             if httpResponse.statusCode == 200, let data = data {
                 do {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                        let token = jsonResponse["token"] as? String {
                         print("Token reçu: \(token)")
                         print(jsonResponse)
-                        
+
                         AuthManager.shared.saveToken(token: token)
-                        
+
                         DispatchQueue.main.async {
                             self.onLoginSucceed()
                         }
@@ -95,12 +117,5 @@ class AuthenticationViewModel: ObservableObject {
                 }
             }
         }.resume()
-    }
-    
-    // Validation d'une adresse e-mail avec une expression régulière
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailPredicate.evaluate(with: email)
     }
 }

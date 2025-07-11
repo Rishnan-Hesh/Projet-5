@@ -5,4 +5,3 @@ struct Transaction: Codable, Identifiable {
     let description: String
     let amount: String
 }
-

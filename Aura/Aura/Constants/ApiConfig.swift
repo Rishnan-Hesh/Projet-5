@@ -1,6 +1,7 @@
 import Foundation
 
-struct ApiConfig {
+enum ApiConfig {
+
     static let baseUrl = "http://127.0.0.1:8080"
     
     enum Endpoint: String {
@@ -9,6 +10,6 @@ struct ApiConfig {
     }
 
     static func url(for endpoint: Endpoint) -> URL? {
-        return URL(string: baseUrl + endpoint.rawValue)
+        URL(string: baseUrl + endpoint.rawValue)
     }
 }
