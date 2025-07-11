@@ -13,10 +13,10 @@ class AuthenticationViewModel: ObservableObject {
     
     let onLoginSucceed: (() -> ())
     
-    init(_ callback: @escaping () -> ()) {
-        self.onLoginSucceed = callback
+    init(onLoginSucceed: @escaping () -> ()) {
+        self.onLoginSucceed = onLoginSucceed
     }
-    
+
     func login() {
         // Vérification de l'adresse e-mail avant requête
         guard isValidEmail(username) else {
@@ -27,11 +27,11 @@ class AuthenticationViewModel: ObservableObject {
         }
         
         // Setup du backend
-        guard let url = URL(string: "http://127.0.0.1:8080/auth") else {
+        guard let url = ApiConfig.url(for: .auth) else {
             print("URL invalide")
             return
         }
-        
+
         let body: [String: String] = [
             "username": username,
             "password": password
@@ -69,6 +69,7 @@ class AuthenticationViewModel: ObservableObject {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                        let token = jsonResponse["token"] as? String {
                         print("Token reçu: \(token)")
+                        print(jsonResponse)
                         
                         AuthManager.shared.saveToken(token: token)
                         

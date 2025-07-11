@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct AuraApp: App {
     @StateObject var viewModel = AppViewModel()
-    
+
     var body: some Scene {
         WindowGroup {
             Group {
@@ -18,17 +18,14 @@ struct AuraApp: App {
                     TabView {
                         AccountDetailView(viewModel: viewModel.accountDetailViewModel)
                             .tabItem {
-                                Image(systemName: "person.crop.circle")
-                                Text("Account")
+                                Label("Account", systemImage: "person.crop.circle")
                             }
-                        
-                        MoneyTransferView()
+
+                        MoneyTransferView(viewModel: viewModel.moneyTransferViewModel)
                             .tabItem {
-                                Image(systemName: "arrow.right.arrow.left.circle")
-                                Text("Transfer")
+                                Label("Transfer", systemImage: "arrow.right.arrow.left.circle")
                             }
                     }
-                    
                 } else {
                     AuthenticationView(viewModel: viewModel.authenticationViewModel)
                         .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity),
