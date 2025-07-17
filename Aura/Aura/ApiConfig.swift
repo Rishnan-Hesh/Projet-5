@@ -6,7 +6,10 @@ struct ApiConfig {
     enum Endpoint: String {
         case auth = "/auth"
         case account = "/account"
+<<<<<<< HEAD
         case transfer = "/account/transfer"
+=======
+>>>>>>> b1b4c8c5651bfbab9337c524738acbb3f1489c13
     }
 
     static func url(for endpoint: Endpoint) -> URL? {
