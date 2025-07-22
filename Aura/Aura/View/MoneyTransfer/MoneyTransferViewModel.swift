@@ -62,7 +62,7 @@ class MoneyTransferViewModel: ObservableObject {
         task.resume()
     }
     
-    func sendMoney() {
+    func sendMoney(completion: (() -> Void)? = nil) {
         //Valider le destinataire
         guard isValidRecipient(recipient) else {
             transferMessage = "Destinataire invalide (email ou numéro FR requis)."
@@ -102,6 +102,7 @@ class MoneyTransferViewModel: ObservableObject {
         //Lancer la requête
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
+                defer { completion?() }
                 if let error = error {
                     self.transferMessage = "Erreur: \(error.localizedDescription)"
                     return
@@ -115,25 +116,20 @@ class MoneyTransferViewModel: ObservableObject {
                 if httpResponse.statusCode == 200 {
                     self.transferMessage = "Transfert de \(amountValue)€ vers \(self.recipient) effectué !"
                     
-                    // Rafraîchir le solde
-                    Task {
-                        await self.accountViewModel?.fetchAccountDetails()
-                    }
+                    // Ajout immédiat dans la vue
+                    self.accountViewModel?.ajouterTransactionLocale(recipient: self.recipient, montant: amountValue)
+                    
+                    // MAJ instantanée côté UI
+                    self.accountViewModel?.soustraireDuSolde(amountValue)
+                    
                 } else {
                     self.transferMessage = "Échec du transfert (code \(httpResponse.statusCode))."
                 }
-                
             }
         }
         
         task.resume()
-        Task {
-            print("🔄 fetchAccountDetails triggered")
-            await self.accountViewModel?.fetchAccountDetails()
-        }
-
     }
-    
     //Validation du destinataire
     private func isValidRecipient(_ input: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
@@ -141,6 +137,5 @@ class MoneyTransferViewModel: ObservableObject {
         return NSPredicate(format: "SELF MATCHES %@", emailRegEx).evaluate(with: input)
         || NSPredicate(format: "SELF MATCHES %@", phoneRegEx).evaluate(with: input)
     }
-    
 }
 

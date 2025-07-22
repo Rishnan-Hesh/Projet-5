@@ -12,6 +12,29 @@ class AccountDetailViewModel: ObservableObject {
         }
     }
     
+    func ajouterTransactionLocale(recipient: String, montant: Double) {
+        let montantFormate = "-€" + String(format: "%.2f", montant)
+        let nouvelleTransaction = Transaction(description: "Transfert à \(recipient)", amount: montantFormate)
+        
+        DispatchQueue.main.async {
+            // Insère en haut des deux tableaux
+            self.allTransactions.insert(nouvelleTransaction, at: 0)
+            self.recentTransactions = Array(self.allTransactions.prefix(3))
+        }
+    }
+    
+    func soustraireDuSolde(_ montant: Double) {
+        let montantNumerique = totalAmount.replacingOccurrences(of: "€", with: "").replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "-", with: "").replacingOccurrences(of: ",", with: ".")
+        if let soldeActuel = Double(montantNumerique) {
+            // On force l'affichage du nouveau solde avec le bon signe
+            let nouveauSolde = soldeActuel - montant
+            DispatchQueue.main.async {
+                self.totalAmount = String(format: "€%.2f", nouveauSolde)
+            }
+        }
+    }
+    
+    
     func fetchAccountDetails() async {
         guard let url = ApiConfig.url(for: .account) else {
             print("URL invalide")
@@ -30,12 +53,10 @@ class AccountDetailViewModel: ObservableObject {
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             let response = try JSONDecoder().decode(AccountResponse.self, from: data)
-            
-            //question
             let transactions = response.transactions.map { tx in
                 let formatted = tx.value >= 0
-                    ? "+€\(String(format: "%.2f", NSDecimalNumber(decimal: tx.value).doubleValue))"
-                    : "-€\(String(format: "%.2f", NSDecimalNumber(decimal: abs(tx.value)).doubleValue))"
+                ? "+€\(String(format: "%.2f", NSDecimalNumber(decimal: tx.value).doubleValue))"
+                : "-€\(String(format: "%.2f", NSDecimalNumber(decimal: abs(tx.value)).doubleValue))"
                 return Transaction(description: tx.label, amount: formatted)
             }
             
