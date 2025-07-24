@@ -7,17 +7,27 @@ struct ErrorWrapper: Identifiable {
 }
 
 class AuthenticationViewModel: ObservableObject {
+
+    private let networkService: any NetworkService
+
+    #if DEBUG
+    @Published var username = "test@aura.app"
+    @Published var password = "test123"
+    #else
     @Published var username: String = ""
     @Published var password: String = ""
+    #endif
+
     @Published var error: ErrorWrapper? = nil // Gestion des erreurs pour la vue SwiftUI
     
     let onLoginSucceed: (() -> ())
     
-    init(onLoginSucceed: @escaping () -> ()) {
+    init(networkService: any NetworkService = NetworkServiceImplementation(), onLoginSucceed: @escaping () -> ()) {
+        self.networkService = networkService
         self.onLoginSucceed = onLoginSucceed
     }
 
-    func login() {
+    func login() async {
         // Vérification de l'adresse e-mail avant requête
         guard isValidEmail(username) else {
             DispatchQueue.main.async {
@@ -31,70 +41,21 @@ class AuthenticationViewModel: ObservableObject {
             print("URL invalide")
             return
         }
+        
+        let response: AuthenticationResponse = try! await networkService.call(
+            url: url.absoluteString,
+            httpMethod: "POST",
+            body: try! JSONEncoder().encode(AuthenticationRequest(username: username, password: password))
+        )
 
-        let body: [String: String] = [
-            "username": username,
-            "password": password
-        ]
-        
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: body) else {
-            print("Erreur de conversion JSON")
-            return
+        print("Token reçu: \(response.token)")
+        print(response)
+
+        AuthManager.shared.saveToken(token: response.token)
+
+        DispatchQueue.main.async {
+            self.onLoginSucceed()
         }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Erreur réseau: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    self.error = ErrorWrapper(message: "Erreur réseau : \(error.localizedDescription)")
-                }
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                print("Réponse invalide")
-                DispatchQueue.main.async {
-                    self.error = ErrorWrapper(message: "Réponse invalide du serveur.")
-                }
-                return
-            }
-            
-            if httpResponse.statusCode == 200, let data = data {
-                do {
-                    if let jsonResponse = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                       let token = jsonResponse["token"] as? String {
-                        print("Token reçu: \(token)")
-                        print(jsonResponse)
-                        
-                        AuthManager.shared.saveToken(token: token)
-                        
-                        DispatchQueue.main.async {
-                            self.onLoginSucceed()
-                        }
-                    } else {
-                        print("Token non trouvé dans la réponse")
-                        DispatchQueue.main.async {
-                            self.error = ErrorWrapper(message: "Token non trouvé dans la réponse.")
-                        }
-                    }
-                } catch {
-                    print("Erreur de parsing JSON: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        self.error = ErrorWrapper(message: "Erreur de parsing JSON : \(error.localizedDescription)")
-                    }
-                }
-            } else {
-                print("Échec de la connexion: Status code \(httpResponse.statusCode)")
-                DispatchQueue.main.async {
-                    self.error = ErrorWrapper(message: "Échec de la connexion : Code \(httpResponse.statusCode)")
-                }
-            }
-        }.resume()
     }
     
     // Validation d'une adresse e-mail avec une expression régulière
@@ -103,4 +64,13 @@ class AuthenticationViewModel: ObservableObject {
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPredicate.evaluate(with: email)
     }
+}
+
+struct AuthenticationRequest: Encodable {
+    let username: String
+    let password: String
+}
+
+struct AuthenticationResponse: Decodable {
+    let token: String
 }

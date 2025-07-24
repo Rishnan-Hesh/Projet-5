@@ -1,14 +1,9 @@
 import Foundation
 
 // Protocole pour l'injection réseau (mock pour le test, URLSession pour la prod)
-protocol NetworkSessionProtocol {
-    func data(for request: URLRequest) async throws -> (Data, URLResponse)
-}
+
 extension URLSession: NetworkSessionProtocol {}
 
-protocol AuthManagerProtocol {
-    func getToken() -> String?
-}
 extension AuthManager: AuthManagerProtocol {}
 
 class AccountDetailViewModel: ObservableObject {
@@ -35,7 +30,9 @@ class AccountDetailViewModel: ObservableObject {
 
     func ajouterTransactionLocale(recipient: String, montant: Double) {
         let montantFormate = "-€" + String(format: "%.2f", montant)
+
         let nouvelleTransaction = Transaction(description: "Transfert à \(recipient)", amount: montantFormate)
+
         DispatchQueue.main.async {
             self.allTransactions.insert(nouvelleTransaction, at: 0)
             self.recentTransactions = Array(self.allTransactions.prefix(3))
@@ -51,6 +48,7 @@ class AccountDetailViewModel: ObservableObject {
 
         if let soldeActuel = Double(montantNumerique) {
             let nouveauSolde = soldeActuel - montant
+            
             DispatchQueue.main.async {
                 self.totalAmount = String(format: "€%.2f", nouveauSolde)
             }
@@ -87,15 +85,5 @@ class AccountDetailViewModel: ObservableObject {
         } catch {
             print("Erreur lors du chargement : \(error.localizedDescription)")
         }
-    }
-
-    struct AccountResponse: Codable {
-        let currentBalance: Decimal
-        let transactions: [BackendTransaction]
-    }
-
-    struct BackendTransaction: Codable {
-        let value: Decimal
-        let label: String
     }
 }

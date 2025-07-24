@@ -61,17 +61,8 @@ struct MoneyTransferView: View {
             }
             .padding(.bottom, 18)
         }
-        .onAppear {
-            viewModel.login { success in
-                if success {
-                            print("Logged in")
-                        } else {
-                            print( "Login failed")
-                        }
-                    }
-                }
-        }
     }
+}
 
 #Preview {
     let vm: MoneyTransferViewModel = {

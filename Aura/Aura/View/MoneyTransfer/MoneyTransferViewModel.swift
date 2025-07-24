@@ -14,53 +14,6 @@ class MoneyTransferViewModel: ObservableObject {
     }
     
     // MARK: - Authentification via /auth
-    func login(completion: @escaping (Bool) -> Void) {
-        guard let url = ApiConfig.url(for: .auth) else {
-            transferMessage = "URL de login invalide."
-            completion(false)
-            return
-        }
-        
-        let authentificators: [String: Any] = [
-            "username": "test@aura.app",
-            "password": "test123"
-        ]
-        
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: authentificators) else {
-            transferMessage = "Erreur de création du JSON de login."
-            completion(false)
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    self.transferMessage = "Erreur lors du login : \(error.localizedDescription)"
-                    completion(false)
-                    return
-                }
-                
-                guard let data = data,
-                      let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                      let receivedToken = json["token"] as? String else {
-                    self.transferMessage = "Réponse invalide de l'API /auth"
-                    completion(false)
-                    return
-                }
-                
-                self.token = receivedToken
-                self.transferMessage = "✅ Connexion réussie. Token reçu."
-                completion(true)
-            }
-        }
-        
-        task.resume()
-    }
     
     func sendMoney(completion: (() -> Void)? = nil) {
         // Valider le destinataire

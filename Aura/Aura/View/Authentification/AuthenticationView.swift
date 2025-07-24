@@ -38,7 +38,9 @@ struct AuthenticationView: View {
                     .cornerRadius(8)
                 
                 Button(action: {
-                    viewModel.login()
+                    Task {
+                        await viewModel.login()
+                    }
                 }) {
                     Text("Se connecter")
                         .foregroundColor(.white)

@@ -2,6 +2,7 @@ import XCTest
 @testable import Aura
 
 final class AuthenticationViewModelTests: XCTestCase {
+    
     func testLogin_withInvalidEmail_setsError() {
         // 1. Préparer une expectation asynchrone pour attendre la modification de l'erreur.
         let expectation = self.expectation(description: "Erreur d'email détectée")
