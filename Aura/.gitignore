@@ -1,0 +1,17 @@
+# Ignorer les fichiers utilisateurs Xcode
+*.xcuserstate
+*.xcworkspace
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+
+# Dossiers de build
+build/
+DerivedData/
+
+# Fichiers de dépendances CocoaPods
+Pods/
+
+# Fichiers de configuration
+.DS_Store
+.env
+

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		484A13D82E3A5FAA002F6822 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 484A13D72E3A5F9A002F6822 /* .gitignore */; };
 		48E2566F2E1EC526006E8AB4 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2566E2E1EC526006E8AB4 /* Transaction.swift */; };
 		48E256732E1EC9CE006E8AB4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E256722E1EC9CE006E8AB4 /* ApiConfig.swift */; };
 		48E2E4242E2CA7F3009DE705 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E4232E2CA7F3009DE705 /* Auth.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		484A13D72E3A5F9A002F6822 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		48E2566E2E1EC526006E8AB4 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Transaction.swift; path = Aura/Model/Transaction.swift; sourceTree = SOURCE_ROOT; };
 		48E256722E1EC9CE006E8AB4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ApiConfig.swift; path = Aura/Model/ApiConfig.swift; sourceTree = SOURCE_ROOT; };
 		48E2E4232E2CA7F3009DE705 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Auth.swift; path = Aura/Model/Auth.swift; sourceTree = SOURCE_ROOT; };
@@ -82,6 +84,7 @@
 		53D4186F2AC7099A0070ADB1 = {
 			isa = PBXGroup;
 			children = (
+				484A13D72E3A5F9A002F6822 /* .gitignore */,
 				53D4187A2AC7099A0070ADB1 /* Aura */,
 				48E2E4622E300D3E009DE705 /* AuraTests */,
 				53D418792AC7099A0070ADB1 /* Products */,
@@ -219,6 +222,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				484A13D82E3A5FAA002F6822 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

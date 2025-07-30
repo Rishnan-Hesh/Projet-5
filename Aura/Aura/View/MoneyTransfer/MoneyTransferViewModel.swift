@@ -118,8 +118,8 @@ class MoneyTransferViewModel: ObservableObject {
 
                 if httpResponse.statusCode == 200 {
                     self.transferMessage = "Transfert de \(amountValue)€ vers \(self.recipient) effectué !"
-                    self.accountViewModel?.ajouterTransactionLocale(recipient: self.recipient, montant: amountValue)
-                    self.accountViewModel?.soustraireDuSolde(amountValue)
+                    self.accountViewModel?.addLocalTransaction(recipient: self.recipient, montant: amountValue)
+                    self.accountViewModel?.amountMinus(amountValue)
                 } else {
                     self.transferMessage = "Échec du transfert (code \(httpResponse.statusCode))."
                 }

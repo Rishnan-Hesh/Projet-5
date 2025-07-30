@@ -7,7 +7,7 @@ struct AllTransactionsView: View {
         List(transactions) { transaction in
             TransactionCaseView(transaction: transaction)
         }
-        .scrollContentBackground(.hidden)// <-- Cache le fond du scroll pour List (iOS 16+)
+        .scrollContentBackground(.hidden)// <-- Cache le fond du scroll pour List
         .navigationTitle("All Transactions")
         
         

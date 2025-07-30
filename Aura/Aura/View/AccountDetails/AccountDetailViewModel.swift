@@ -33,26 +33,26 @@ class AccountDetailViewModel: ObservableObject {
         }
     }
 
-    func ajouterTransactionLocale(recipient: String, montant: Double) {
+    func addLocalTransaction(recipient: String, montant: Double) {
         let montantFormate = "-€" + String(format: "%.2f", montant)
-        let nouvelleTransaction = Transaction(description: "Transfert à \(recipient)", amount: montantFormate)
+        let newTransaction = Transaction(description: "Transfert à \(recipient)", amount: montantFormate)
         DispatchQueue.main.async {
-            self.allTransactions.insert(nouvelleTransaction, at: 0)
+            self.allTransactions.insert(newTransaction, at: 0)
             self.recentTransactions = Array(self.allTransactions.prefix(3))
         }
     }
 
-    func soustraireDuSolde(_ montant: Double) {
-        let montantNumerique = totalAmount
+    func amountMinus(_ amount: Double) {
+        let numAmount = totalAmount
             .replacingOccurrences(of: "€", with: "")
             .replacingOccurrences(of: "+", with: "")
             .replacingOccurrences(of: "-", with: "")
             .replacingOccurrences(of: ",", with: ".")
 
-        if let soldeActuel = Double(montantNumerique) {
-            let nouveauSolde = soldeActuel - montant
+        if let actualAmount = Double(numAmount) {
+            let newAmount = actualAmount - amount
             DispatchQueue.main.async {
-                self.totalAmount = String(format: "€%.2f", nouveauSolde)
+                self.totalAmount = String(format: "€%.2f", newAmount)
             }
         }
     }
