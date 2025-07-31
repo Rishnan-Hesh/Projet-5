@@ -8,16 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		484A13D82E3A5FAA002F6822 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 484A13D72E3A5F9A002F6822 /* .gitignore */; };
-		48E2566F2E1EC526006E8AB4 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2566E2E1EC526006E8AB4 /* Transaction.swift */; };
-		48E256732E1EC9CE006E8AB4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E256722E1EC9CE006E8AB4 /* ApiConfig.swift */; };
-		48E2E4242E2CA7F3009DE705 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E4232E2CA7F3009DE705 /* Auth.swift */; };
-		48E2E4262E2CA82F009DE705 /* AccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E4252E2CA82F009DE705 /* AccountResponse.swift */; };
-		48E2E4572E300473009DE705 /* CaseDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E4562E300473009DE705 /* CaseDetails.swift */; };
 		53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4187B2AC7099A0070ADB1 /* AuraApp.swift */; };
 		53D418802AC7099B0070ADB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D4187F2AC7099B0070ADB1 /* Assets.xcassets */; };
 		53D418832AC7099B0070ADB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */; };
-		53D418992AC70FD80070ADB1 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D418982AC70FD80070ADB1 /* Color+Extensions.swift */; };
-		53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,23 +25,65 @@
 
 /* Begin PBXFileReference section */
 		484A13D72E3A5F9A002F6822 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		48E2566E2E1EC526006E8AB4 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Transaction.swift; path = Aura/Model/Transaction.swift; sourceTree = SOURCE_ROOT; };
-		48E256722E1EC9CE006E8AB4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ApiConfig.swift; path = Aura/Model/ApiConfig.swift; sourceTree = SOURCE_ROOT; };
-		48E2E4232E2CA7F3009DE705 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Auth.swift; path = Aura/Model/Auth.swift; sourceTree = SOURCE_ROOT; };
-		48E2E4252E2CA82F009DE705 /* AccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AccountResponse.swift; path = Aura/Model/AccountResponse.swift; sourceTree = SOURCE_ROOT; };
-		48E2E4562E300473009DE705 /* CaseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseDetails.swift; sourceTree = "<group>"; };
 		48E2E4612E300D3E009DE705 /* AuraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D418782AC7099A0070ADB1 /* Aura.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aura.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D4187B2AC7099A0070ADB1 /* AuraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraApp.swift; sourceTree = "<group>"; };
 		53D4187F2AC7099B0070ADB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		53D418982AC70FD80070ADB1 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		484B0C7D2E3A99E800F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/AccountResponse.swift,
+				Models/ApiConfig.swift,
+				Models/Auth.swift,
+				Models/BackendTransaction.swift,
+				Models/ErrorWrapper.swift,
+				Models/Transaction.swift,
+				Protocol/AuthServiceProtocol.swift,
+				Utils/CaseDetails.swift,
+				"Utils/Color+Extensions.swift",
+				"Utils/View+Extensions.swift",
+				ViewModel/AppViewModel.swift,
+				Views/AccountDetails/AccountDetailView.swift,
+				Views/AccountDetails/AccountDetailViewModel.swift,
+				Views/Authentification/AuthentificationView.swift,
+				Views/Authentification/AuthentificationViewModel.swift,
+				Views/MoneyTransfer/MoneyTransferView.swift,
+				Views/MoneyTransfer/MoneyTransferViewModel.swift,
+				Views/Transaction/AllTransactionsView.swift,
+			);
+			target = 53D418772AC7099A0070ADB1 /* Aura */;
+		};
+		484B0C9A2E3AC1C100F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/AccountResponse.swift,
+				Models/ApiConfig.swift,
+				Models/Auth.swift,
+				Models/BackendTransaction.swift,
+				Models/ErrorWrapper.swift,
+				Models/Transaction.swift,
+				Utils/CaseDetails.swift,
+				"Utils/Color+Extensions.swift",
+				"Utils/View+Extensions.swift",
+				ViewModel/AppViewModel.swift,
+				Views/AccountDetails/AccountDetailView.swift,
+				Views/AccountDetails/AccountDetailViewModel.swift,
+				Views/Authentification/AuthentificationView.swift,
+				Views/Authentification/AuthentificationViewModel.swift,
+				Views/MoneyTransfer/MoneyTransferView.swift,
+				Views/MoneyTransfer/MoneyTransferViewModel.swift,
+				Views/Transaction/AllTransactionsView.swift,
+			);
+			target = 48E2E4602E300D3E009DE705 /* AuraTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		48E2E44B2E2CA99F009DE705 /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
-		48E2E4542E2CA9A2009DE705 /* ViewModel */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModel; sourceTree = "<group>"; };
+		484B0C7A2E3A750A00F59938 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (484B0C7D2E3A99E800F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 484B0C9A2E3AC1C100F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
 		48E2E4622E300D3E009DE705 /* AuraTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AuraTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -70,17 +105,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		48E2E4292E2CA896009DE705 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				48E2E4232E2CA7F3009DE705 /* Auth.swift */,
-				48E2E4252E2CA82F009DE705 /* AccountResponse.swift */,
-				48E256722E1EC9CE006E8AB4 /* ApiConfig.swift */,
-				48E2566E2E1EC526006E8AB4 /* Transaction.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		53D4186F2AC7099A0070ADB1 = {
 			isa = PBXGroup;
 			children = (
@@ -103,10 +127,7 @@
 		53D4187A2AC7099A0070ADB1 /* Aura */ = {
 			isa = PBXGroup;
 			children = (
-				48E2E44B2E2CA99F009DE705 /* View */,
-				48E2E4542E2CA9A2009DE705 /* ViewModel */,
-				48E2E4292E2CA896009DE705 /* Model */,
-				53D418962AC70FC50070ADB1 /* Utils */,
+				484B0C7A2E3A750A00F59938 /* Sources */,
 				53D4187B2AC7099A0070ADB1 /* AuraApp.swift */,
 				53D4187F2AC7099B0070ADB1 /* Assets.xcassets */,
 				53D418812AC7099B0070ADB1 /* Preview Content */,
@@ -120,16 +141,6 @@
 				53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		53D418962AC70FC50070ADB1 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				53D418982AC70FD80070ADB1 /* Color+Extensions.swift */,
-				53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */,
-				48E2E4562E300473009DE705 /* CaseDetails.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +160,7 @@
 				48E2E4662E300D3E009DE705 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				484B0C7A2E3A750A00F59938 /* Sources */,
 				48E2E4622E300D3E009DE705 /* AuraTests */,
 			);
 			name = AuraTests;
@@ -169,10 +181,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				48E2E44B2E2CA99F009DE705 /* View */,
-				48E2E4542E2CA9A2009DE705 /* ViewModel */,
 			);
 			name = Aura;
 			productName = Aura;
@@ -250,13 +258,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */,
-				48E2566F2E1EC526006E8AB4 /* Transaction.swift in Sources */,
-				48E2E4242E2CA7F3009DE705 /* Auth.swift in Sources */,
-				48E2E4262E2CA82F009DE705 /* AccountResponse.swift in Sources */,
-				53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */,
-				48E256732E1EC9CE006E8AB4 /* ApiConfig.swift in Sources */,
-				48E2E4572E300473009DE705 /* CaseDetails.swift in Sources */,
-				53D418992AC70FD80070ADB1 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

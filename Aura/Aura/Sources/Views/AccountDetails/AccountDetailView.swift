@@ -61,7 +61,6 @@ struct AccountDetailView: View {
 #Preview {
     // ViewModel factice pour la preview
     let vm = AccountDetailViewModel()
-    // valeurs de démo
     vm.totalAmount = "€150.00"
     vm.allTransactions = [
         Transaction(description: "Déjeuner 🍔", amount: "-€12.00"),

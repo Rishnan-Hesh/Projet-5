@@ -19,20 +19,20 @@ final class AppViewModelTests: XCTestCase {
     }
 
     func testOnLoginSucceed_SetsIsLogged() {
-        viewModel.authenticationViewModel.onLoginSucceed()
+        viewModel.authentificationViewModel.onLoginSucceed()
         XCTAssertTrue(viewModel.isLogged)
     }
 
     func testOnLoginSucceed_Idempotence() {
-        viewModel.authenticationViewModel.onLoginSucceed()
-        viewModel.authenticationViewModel.onLoginSucceed()
+        viewModel.authentificationViewModel.onLoginSucceed()
+        viewModel.authentificationViewModel.onLoginSucceed()
         XCTAssertTrue(viewModel.isLogged)
     }
 
     func testAllViewModels_AreNotNil() {
         XCTAssertNotNil(viewModel.accountDetailViewModel)
         XCTAssertNotNil(viewModel.moneyTransferViewModel)
-        XCTAssertNotNil(viewModel.authenticationViewModel)
+        XCTAssertNotNil(viewModel.authentificationViewModel)
     }
 
     func testMoneyTransferViewModel_UsesInjectedAccountDetailViewModel() {

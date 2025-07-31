@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct AuthenticationView: View {
+struct AuthentificationView: View {
     
     let gradientStart = Color(hex: "#94A684").opacity(0.7)
     let gradientEnd = Color(hex: "#94A684").opacity(0.0)
-
-    @ObservedObject var viewModel: AuthenticationViewModel
+    
+    @ObservedObject var viewModel: AuthentificationViewModel
     
     var body: some View {
         
@@ -13,13 +13,13 @@ struct AuthenticationView: View {
             // Background gradient
             LinearGradient(gradient: Gradient(colors: [gradientStart, gradientEnd]), startPoint: .top, endPoint: .bottomLeading)
                 .edgesIgnoringSafeArea(.all)
-
+            
             VStack(spacing: 20) {
                 Image(systemName: "person.circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 50, height: 50)
-                    
+                
                 Text("Welcome !")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
@@ -60,5 +60,5 @@ struct AuthenticationView: View {
 }
 
 #Preview {
-    AuthenticationView(viewModel: AuthenticationViewModel(onLoginSucceed: { }))
+AuthentificationView(viewModel: AuthentificationViewModel(onLoginSucceed: { }))
 }

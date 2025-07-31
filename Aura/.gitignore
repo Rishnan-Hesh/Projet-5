@@ -8,9 +8,6 @@
 build/
 DerivedData/
 
-# Fichiers de dépendances CocoaPods
-Pods/
-
 # Fichiers de configuration
 .DS_Store
 .env

@@ -18,72 +18,106 @@ final class MoneyTransferViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    // Test 1 : Vérifie l’injection du AccountDetailViewModel
+    // Test  : Vérifie l’injection du AccountDetailViewModel
     func testInit_AccountViewModelInjected() {
         XCTAssertTrue(viewModel.accountViewModel === mockAccountViewModel, "MoneyTransferViewModel doit utiliser la bonne instance de AccountDetailViewModel")
     }
     
-    // Test 2 : Vérifie la validation de destinataire pour cas valide et invalide
+    // Test  : Vérifie la validation de destinataire pour cas valide et invalide
     func testIsValidRecipient() {
-        // Voici quelques exemples d'utilisation
         XCTAssertTrue(viewModel.isValidRecipient("mail@exemple.com"), "Le destinataire valide devrait être accepté")
         XCTAssertFalse(viewModel.isValidRecipient(""), "Un destinataire vide doit être refusé")
         XCTAssertFalse(viewModel.isValidRecipient("NomSeulement"), "Un destinataire sans mail doit être refusé")
+        XCTAssertTrue(viewModel.isValidRecipient("+33612345678"))
+        XCTAssertTrue(viewModel.isValidRecipient("0612345678"))
+        XCTAssertFalse(viewModel.isValidRecipient("01234"))
     }
     
-    // Test 3 : Vérifie l’envoi d’argent avec succès (si méthode asynchrone avec completion)
-    func testSendMoney_Success() {
-        // Adaptation selon la signature réelle de sendMoney
-        let expectation = self.expectation(description: "Virement réussi")
+    func testSendMoney_InvalidRecipient_CallsCompletionWithMessage() {
+        viewModel.recipient = "invalid"
+        viewModel.amount = "20"
+        let expectation = self.expectation(description: "Completion should be called")
         viewModel.sendMoney {
-            // Ici tu ne peux plus brancher sur le résultat, donc adapte selon le code réel
-            // Si c'est censé rater, mets XCTFail() ici ou vérifie l'état interne du ViewModel
+            XCTAssertEqual(self.viewModel.transferMessage, "Destinataire invalide (email ou numéro FR requis).")
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
     }
     
-    // Test 4 : Vérifie l’échec de l'envoi d'argent
+    // Test  : Vérifie l’envoi d’argent avec succès (si méthode asynchrone avec completion)
+    func testSendMoney_Success() {
+        let expectation = self.expectation(description: "Virement réussi")
+        viewModel.sendMoney {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    // Test  : Vérifie l’échec de l'envoi d'argent
     func testSendMoney_Failure() {
         // Simule une configuration ou donnée provoquant une erreur
         viewModel.recipient = ""
         viewModel.amount = "-10"
         let expectation = self.expectation(description: "Virement échoue")
         viewModel.sendMoney {
-            // Ici tu ne peux plus brancher sur le résultat, donc adapte selon le code réel
-            // Si c'est censé rater, mets XCTFail() ici ou vérifie l'état interne du ViewModel
             expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 1.0)
     }
     
-    // Test 5 : Vérifie la gestion des closures de callback internes (couverture max)
+    // Test  : Vérifie la gestion des closures de callback internes (couverture max)
     func test_sendMoney_CompletionIsCalled() {
         let expectation = self.expectation(description: "Callback appelé")
         viewModel.sendMoney {
-            // Ici tu ne peux plus brancher sur le résultat, donc adapte selon le code réel
-            // Si c'est censé rater, mets XCTFail() ici ou vérifie l'état interne du ViewModel
             expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 1.0)
     }
     
-    // Test 6 : Vérifie que les propriétés sont réinitialisées après un envoi (si applicable)
+    func testSendMoney_InvalidAmount_SetsErrorMessage() {
+        viewModel.recipient = "mail@exemple.com"
+        viewModel.amount = "-10"
+        
+        let expectation = self.expectation(description: "Erreur pour montant invalide")
+
+        viewModel.sendMoney {
+            XCTAssertEqual(self.viewModel.transferMessage, "Montant invalide. Entrez un nombre positif.")
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 1.0)
+    }
+
+
+
+    func testSendMoney_ValidInput_SetsSuccessMessage() {
+        viewModel.recipient = "mail@exemple.com"
+        viewModel.amount = "42"
+        let expectation = self.expectation(description: "Virement envoyé")
+        viewModel.sendMoney {
+            XCTAssertEqual(self.viewModel.transferMessage, "Virement envoyé !")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    
+    // Test  : propriétés réinitialisées après un envoi
     func testSendMoney_ResetsState() {
         viewModel.recipient = "mail@exemple.com"
         viewModel.amount = "100"
         let expectation = self.expectation(description: "Reset après succès")
         
         viewModel.sendMoney {
-            // Vérifie que la propriété a bien été "reset"
-            XCTAssertEqual(self.viewModel.recipient, "mail@exemple.com")
-            XCTAssertEqual(self.viewModel.amount, "100")
+            XCTAssertEqual(self.viewModel.recipient, "", "Le destinataire devrait être réinitialisé")
+            XCTAssertEqual(self.viewModel.amount, "", "Le montant devrait être réinitialisé")
             expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 1.0)
     }
+
     
 }

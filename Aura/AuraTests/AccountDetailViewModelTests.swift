@@ -29,7 +29,7 @@ final class AccountDetailViewModelTests: XCTestCase {
         let countBefore = viewModel.allTransactions.count
         let expectation = expectation(description: "Propagation main queue")
 
-        viewModel.ajouterTransactionLocale(recipient: "Alice", montant: 25.5)
+        viewModel.addLocalTransaction(recipient: "Alice", montant: 25.5)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             XCTAssertEqual(self.viewModel.allTransactions.count, countBefore + 1)
             XCTAssertEqual(self.viewModel.recentTransactions.first?.description, "Transfert à Alice")
@@ -42,7 +42,7 @@ final class AccountDetailViewModelTests: XCTestCase {
     func testRecentTransactionsCountIsMaxThree() {
         let expectation = expectation(description: "Propagation main queue")
         for i in 1...5 {
-            viewModel.ajouterTransactionLocale(recipient: "Bob \(i)", montant: Double(i))
+            viewModel.addLocalTransaction(recipient: "Bob \(i)", montant: Double(i))
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             XCTAssertEqual(self.viewModel.recentTransactions.count, 3)
@@ -57,7 +57,7 @@ final class AccountDetailViewModelTests: XCTestCase {
         viewModel.totalAmount = "€200.00"
         let expectation = expectation(description: "Solde mis à jour")
 
-        viewModel.soustraireDuSolde(20.75)
+        viewModel.amountMinus(20.75)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             XCTAssertEqual(self.viewModel.totalAmount, "€179.25")
             expectation.fulfill()

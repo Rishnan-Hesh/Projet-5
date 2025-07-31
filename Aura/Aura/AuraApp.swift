@@ -27,7 +27,7 @@ struct AuraApp: App {
                             }
                     }
                 } else {
-                    AuthenticationView(viewModel: viewModel.authenticationViewModel)
+                    AuthentificationView(viewModel: viewModel.authentificationViewModel)
                         .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity),
                                                 removal: .move(edge: .top).combined(with: .opacity)))
                     
