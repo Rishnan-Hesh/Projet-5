@@ -38,7 +38,7 @@ struct AccountDetailView: View {
                 }
                 .background(Color(.systemBackground))
                 
-                // Le bouton doit être ICI, dans le VStack
+                // Button in V-stack here
                 NavigationLink(destination: AllTransactionsView(transactions: viewModel.allTransactions)) {
                     HStack {
                         Image(systemName: "list.bullet")
@@ -59,7 +59,7 @@ struct AccountDetailView: View {
 
 
 #Preview {
-    // ViewModel factice pour la preview
+    //Fake ViewModel for preview
     let vm = AccountDetailViewModel()
     vm.totalAmount = "€150.00"
     vm.allTransactions = [

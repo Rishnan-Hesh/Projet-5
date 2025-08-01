@@ -46,10 +46,9 @@ struct MoneyTransferView: View {
                 }
                 .disabled(isProcessing)
                 .padding(.horizontal, 16)
-
                 
-                //Explication "??"
-                // Message de feedback
+                
+                //feedback message
                 if !(viewModel.transferMessage ?? "").isEmpty {
                     Text(viewModel.transferMessage ?? "")
                         .foregroundColor((viewModel.transferMessage ?? "").contains("effectué") ? .green : .red)

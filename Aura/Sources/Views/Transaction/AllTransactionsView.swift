@@ -7,12 +7,12 @@ struct AllTransactionsView: View {
         List(transactions) { transaction in
             TransactionCaseView(transaction: transaction)
         }
-        .scrollContentBackground(.hidden)// <-- Cache le fond du scroll pour List
+        .scrollContentBackground(.hidden)
         .navigationTitle("All Transactions")
         
         
-        //.listRowBackground(Color.white)            // <-- Force le fond de chaque ligne à blanc
-        //.background(Color.white.ignoresSafeArea())  // <-- Fond général de la view Essaie avec mes rien ne change.
+        //.listRowBackground(Color.white)
+        //.background(Color.white.ignoresSafeArea())
     }
     
 }

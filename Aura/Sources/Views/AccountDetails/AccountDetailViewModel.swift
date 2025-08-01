@@ -1,15 +1,18 @@
 import Foundation
 
-// Protocole pour l'injection réseau (mock pour le test, URLSession pour la prod)
+// MARK: - Protocol for network injection
 protocol NetworkSessionProtocol {
     func data(for request: URLRequest) async throws -> (Data, URLResponse)
 }
+
 extension URLSession: NetworkSessionProtocol {}
 
 protocol AuthManagerProtocol {
     func getToken() -> String?
 }
 extension AuthManager: AuthManagerProtocol {}
+
+
 
 class AccountDetailViewModel: ObservableObject {
     @Published var totalAmount: String = "€0.00"
@@ -19,6 +22,7 @@ class AccountDetailViewModel: ObservableObject {
     
     private let networkSession: NetworkSessionProtocol
     private let authManager: AuthManagerProtocol
+    
     
     init(
         networkSession: NetworkSessionProtocol = URLSession.shared,
@@ -31,6 +35,7 @@ class AccountDetailViewModel: ObservableObject {
             Task { await fetchAccountDetails() }
         }
     }
+    
     
     func addLocalTransaction(recipient: String, montant: Double) {
         let montantFormate = "-€" + String(format: "%.2f", montant)

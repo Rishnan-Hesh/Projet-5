@@ -60,5 +60,5 @@ struct AuthentificationView: View {
 }
 
 #Preview {
-AuthentificationView(viewModel: AuthentificationViewModel(onLoginSucceed: { }))
+    AuthentificationView(viewModel: AuthentificationViewModel(onLoginSucceed: { }))
 }

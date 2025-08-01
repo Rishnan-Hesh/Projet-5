@@ -6,7 +6,7 @@ class AuthentificationViewModel: ObservableObject {
     @Published var error: ErrorWr? = nil
     @Published var isAuthenticated = false
     
-    // Closure injectée pour tests
+    // injected closure for tests
     var performLoginRequest: ((_ username: String, _ password: String, _ completion: @escaping (Result<String, Error>) -> Void) -> Void)
     var onLoginSucceed: () -> Void
     
@@ -18,13 +18,14 @@ class AuthentificationViewModel: ObservableObject {
         self.performLoginRequest = performLoginRequest
     }
     
+    
     func isValidEmail(_ email: String) -> Bool {
         let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: email)
     }
     
     func login() {
-        // Reset avant login pour forcer Combine à notifier sur tout nouvel échec
+        // reset before login to force Combine to notify if new fail
         DispatchQueue.main.async { [weak self] in
             self?.error = nil
         }
@@ -46,7 +47,7 @@ class AuthentificationViewModel: ObservableObject {
         }
     }
     
-    //func reseau
+    //func network
     static func defaultLoginRequest(
         username: String,
         password: String,

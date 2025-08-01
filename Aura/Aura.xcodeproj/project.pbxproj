@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		484A13D82E3A5FAA002F6822 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 484A13D72E3A5F9A002F6822 /* .gitignore */; };
-		53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4187B2AC7099A0070ADB1 /* AuraApp.swift */; };
-		53D418802AC7099B0070ADB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D4187F2AC7099B0070ADB1 /* Assets.xcassets */; };
-		53D418832AC7099B0070ADB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,13 +24,10 @@
 		484A13D72E3A5F9A002F6822 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		48E2E4612E300D3E009DE705 /* AuraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D418782AC7099A0070ADB1 /* Aura.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aura.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		53D4187B2AC7099A0070ADB1 /* AuraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraApp.swift; sourceTree = "<group>"; };
-		53D4187F2AC7099B0070ADB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		484B0C7D2E3A99E800F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		489EB85D2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Models/AccountResponse.swift,
@@ -57,7 +51,7 @@
 			);
 			target = 53D418772AC7099A0070ADB1 /* Aura */;
 		};
-		484B0C9A2E3AC1C100F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		489EB85E2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Models/AccountResponse.swift,
@@ -83,7 +77,8 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		484B0C7A2E3A750A00F59938 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (484B0C7D2E3A99E800F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 484B0C9A2E3AC1C100F59938 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
+		489EB82A2E3CCD7F00F43685 /* Ressources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Ressources; sourceTree = "<group>"; };
+		489EB8492E3CCD8C00F43685 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (489EB85D2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 489EB85E2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
 		48E2E4622E300D3E009DE705 /* AuraTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AuraTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -108,9 +103,10 @@
 		53D4186F2AC7099A0070ADB1 = {
 			isa = PBXGroup;
 			children = (
-				484A13D72E3A5F9A002F6822 /* .gitignore */,
-				53D4187A2AC7099A0070ADB1 /* Aura */,
+				489EB8492E3CCD8C00F43685 /* Sources */,
+				489EB82A2E3CCD7F00F43685 /* Ressources */,
 				48E2E4622E300D3E009DE705 /* AuraTests */,
+				484A13D72E3A5F9A002F6822 /* .gitignore */,
 				53D418792AC7099A0070ADB1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,25 +118,6 @@
 				48E2E4612E300D3E009DE705 /* AuraTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		53D4187A2AC7099A0070ADB1 /* Aura */ = {
-			isa = PBXGroup;
-			children = (
-				484B0C7A2E3A750A00F59938 /* Sources */,
-				53D4187B2AC7099A0070ADB1 /* AuraApp.swift */,
-				53D4187F2AC7099B0070ADB1 /* Assets.xcassets */,
-				53D418812AC7099B0070ADB1 /* Preview Content */,
-			);
-			path = Aura;
-			sourceTree = "<group>";
-		};
-		53D418812AC7099B0070ADB1 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,7 +137,7 @@
 				48E2E4662E300D3E009DE705 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				484B0C7A2E3A750A00F59938 /* Sources */,
+				489EB8492E3CCD8C00F43685 /* Sources */,
 				48E2E4622E300D3E009DE705 /* AuraTests */,
 			);
 			name = AuraTests;
@@ -181,6 +158,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				489EB82A2E3CCD7F00F43685 /* Ressources */,
 			);
 			name = Aura;
 			productName = Aura;
@@ -238,8 +218,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53D418832AC7099B0070ADB1 /* Preview Assets.xcassets in Resources */,
-				53D418802AC7099B0070ADB1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +235,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

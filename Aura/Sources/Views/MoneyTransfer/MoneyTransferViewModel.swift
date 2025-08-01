@@ -6,7 +6,7 @@ class MoneyTransferViewModel: ObservableObject {
     @Published var transferMessage: String? = nil
     
     
-    // 🔐 Token reçu après connexion
+    // Token received after login
     var token: String = ""
     var accountViewModel: AccountDetailViewModel?
     
@@ -14,17 +14,23 @@ class MoneyTransferViewModel: ObservableObject {
         self.accountViewModel = accountViewModel
     }
     
-    
+    // Valid recipient
+    internal func isValidRecipient(_ input: String) -> Bool {
+        let emailRegEx = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let phoneRegEx = "^\\+33 ?[1-9](\\d{2}){4}$|^0[1-9](\\d{2}){4}$"
+        let matchesEmail = NSPredicate(format: "SELF MATCHES %@", emailRegEx).evaluate(with: input)
+        let matchesPhone = NSPredicate(format: "SELF MATCHES %@", phoneRegEx).evaluate(with: input)
+        return matchesEmail || matchesPhone
+    }
     
     func sendMoney(completion: @escaping () -> Void) {
-        // Valider le destinataire
         guard isValidRecipient(recipient) else {
             transferMessage = "Destinataire invalide (email ou numéro FR requis)."
             completion()
             return
         }
         
-        // Valider le montant
+        // Valid amount
         guard let amountValue = Double(amount), amountValue > 0 else {
             transferMessage = "Montant invalide. Entrez un nombre positif."
             completion()
@@ -35,15 +41,5 @@ class MoneyTransferViewModel: ObservableObject {
         self.recipient = ""
         self.amount = ""
         completion()
-    }
-    
-    
-    // Validation du destinataire
-    internal func isValidRecipient(_ input: String) -> Bool {
-        let emailRegEx = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let phoneRegEx = "^\\+33 ?[1-9](\\d{2}){4}$|^0[1-9](\\d{2}){4}$"
-        let matchesEmail = NSPredicate(format: "SELF MATCHES %@", emailRegEx).evaluate(with: input)
-        let matchesPhone = NSPredicate(format: "SELF MATCHES %@", phoneRegEx).evaluate(with: input)
-        return matchesEmail || matchesPhone
     }
 }
