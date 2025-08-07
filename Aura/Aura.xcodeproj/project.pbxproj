@@ -30,6 +30,7 @@
 		489EB85D2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				AuraApp.swift,
 				Models/AccountResponse.swift,
 				Models/ApiConfig.swift,
 				Models/Auth.swift,
@@ -54,6 +55,7 @@
 		489EB85E2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				AuraApp.swift,
 				Models/AccountResponse.swift,
 				Models/ApiConfig.swift,
 				Models/Auth.swift,
@@ -79,7 +81,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		489EB82A2E3CCD7F00F43685 /* Ressources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Ressources; sourceTree = "<group>"; };
 		489EB8492E3CCD8C00F43685 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (489EB85D2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 489EB85E2E3CCD8C00F43685 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
-		48E2E4622E300D3E009DE705 /* AuraTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AuraTests; sourceTree = "<group>"; };
+		48E2E4622E300D3E009DE705 /* Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Tests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +107,7 @@
 			children = (
 				489EB8492E3CCD8C00F43685 /* Sources */,
 				489EB82A2E3CCD7F00F43685 /* Ressources */,
-				48E2E4622E300D3E009DE705 /* AuraTests */,
+				48E2E4622E300D3E009DE705 /* Tests */,
 				484A13D72E3A5F9A002F6822 /* .gitignore */,
 				53D418792AC7099A0070ADB1 /* Products */,
 			);
@@ -138,7 +140,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				489EB8492E3CCD8C00F43685 /* Sources */,
-				48E2E4622E300D3E009DE705 /* AuraTests */,
+				48E2E4622E300D3E009DE705 /* Tests */,
 			);
 			name = AuraTests;
 			packageProductDependencies = (
@@ -411,7 +413,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Aura/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Ressources/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -439,7 +441,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Aura/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Ressources/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

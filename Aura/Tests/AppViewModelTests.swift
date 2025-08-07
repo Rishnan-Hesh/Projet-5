@@ -30,13 +30,6 @@ final class AppViewModelTests: XCTestCase {
     }
 
     func testAllViewModels_AreNotNil() {
-        XCTAssertNotNil(viewModel.accountDetailViewModel)
-        XCTAssertNotNil(viewModel.moneyTransferViewModel)
         XCTAssertNotNil(viewModel.authentificationViewModel)
-    }
-
-    func testMoneyTransferViewModel_UsesInjectedAccountDetailViewModel() {
-        let moneyTransferVM = viewModel.moneyTransferViewModel
-        XCTAssertTrue(moneyTransferVM.accountViewModel === viewModel.accountDetailViewModel)
     }
 }

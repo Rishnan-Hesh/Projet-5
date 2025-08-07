@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct AccountDetailView: View {
-    @ObservedObject var viewModel: AccountDetailViewModel
-    
+    @ObservedObject
+    var viewModel = AccountDetailViewModel()
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {

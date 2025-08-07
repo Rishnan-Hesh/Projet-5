@@ -1,7 +1,10 @@
 import SwiftUI
 
 struct MoneyTransferView: View {
-    @ObservedObject var viewModel: MoneyTransferViewModel
+
+    @ObservedObject
+    var viewModel = MoneyTransferViewModel()
+
     @State private var isProcessing = false
     
     var body: some View {
