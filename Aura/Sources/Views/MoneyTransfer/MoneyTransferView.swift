@@ -1,5 +1,8 @@
 import SwiftUI
 
+let accountVM = AccountDetailViewModel()
+let vm = MoneyTransferViewModel(accountViewModel: accountVM)
+
 struct MoneyTransferView: View {
     @ObservedObject var viewModel: MoneyTransferViewModel
     @State private var isProcessing = false

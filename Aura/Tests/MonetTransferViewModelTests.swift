@@ -95,9 +95,9 @@ final class MoneyTransferViewModelTests: XCTestCase {
     func testSendMoney_ValidInput_SetsSuccessMessage() {
         viewModel.recipient = "mail@exemple.com"
         viewModel.amount = "42"
-        let expectation = self.expectation(description: "Virement envoyé")
+        let expectation = self.expectation(description: "Virement effectué avec succès !")
         viewModel.sendMoney {
-            XCTAssertEqual(self.viewModel.transferMessage, "Virement envoyé !")
+            XCTAssertEqual(self.viewModel.transferMessage, "Virement effectué avec succès !")
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)

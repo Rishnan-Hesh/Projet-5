@@ -41,6 +41,7 @@ class AccountDetailViewModel: ObservableObject {
         let montantFormate = "-€" + String(format: "%.2f", montant)
         let newTransaction = Transaction(description: "Transfert à \(recipient)", amount: montantFormate)
         DispatchQueue.main.async {
+            print("🟢 Nouvelle transaction ajoutée : \(newTransaction)")
             self.allTransactions.insert(newTransaction, at: 0)
             self.recentTransactions = Array(self.allTransactions.prefix(3))
         }
@@ -52,10 +53,11 @@ class AccountDetailViewModel: ObservableObject {
             .replacingOccurrences(of: "+", with: "")
             .replacingOccurrences(of: "-", with: "")
             .replacingOccurrences(of: ",", with: ".")
-        
+
         if let actualAmount = Double(numAmount) {
             let newAmount = actualAmount - amount
             DispatchQueue.main.async {
+                print("🟡 Nouveau solde : \(newAmount)")
                 self.totalAmount = String(format: "€%.2f", newAmount)
             }
         }

@@ -29,17 +29,25 @@ class MoneyTransferViewModel: ObservableObject {
             completion()
             return
         }
-        
-        // Valid amount
+
         guard let amountValue = Double(amount), amountValue > 0 else {
             transferMessage = "Montant invalide. Entrez un nombre positif."
             completion()
             return
         }
-        
-        transferMessage = "Virement envoyé !"
+
+        // ✅ Simuler un envoi : succès
+        transferMessage = "Virement effectué avec succès !"
+
+        // ✅ Mise à jour du AccountDetailViewModel
+        accountViewModel?.addLocalTransaction(recipient: recipient, montant: amountValue)
+        accountViewModel?.amountMinus(amountValue)
+
+        // ✅ Réinitialisation des champs
         self.recipient = ""
         self.amount = ""
+
         completion()
     }
+
 }

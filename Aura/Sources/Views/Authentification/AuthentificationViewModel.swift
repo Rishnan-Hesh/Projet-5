@@ -32,6 +32,10 @@ class AuthentificationViewModel: ObservableObject {
         performLoginRequest(username, password) { [weak self] result in
             DispatchQueue.main.async {
                 if let token = try? result.get() {
+
+
+                    AuthManager.shared.saveToken(token: token)
+
                     self?.isAuthenticated = true
                     self?.onLoginSucceed()
                 } else {
